@@ -5,10 +5,11 @@ public:
 	Personaje(float health, float maxHealth, float speed, int damage, float jumpHeight);
 	Personaje();
 	~Personaje();
-
-	// Getters and Setters
 	void Saltar();
 	void Disparar();
+	void Crouchear();
+
+	// Getters and Setters
 	float GetHealth();
 	void SetHealth(float health);
 	float GetMaxHealth();

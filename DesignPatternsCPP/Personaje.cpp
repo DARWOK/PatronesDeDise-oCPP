@@ -36,6 +36,11 @@ Personaje::~Personaje()
 	std::cout << "Llamando Destructor de Personaje" << std::endl;
 }
 
+void Personaje::Crouchear()
+{
+	std::cout << "Llamando Crouch" << std::endl;
+}
+
 float Personaje::GetHealth()
 {
 	return _health;
