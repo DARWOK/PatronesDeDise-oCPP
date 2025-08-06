@@ -44,7 +44,7 @@ void InputHandler::remapearTecla(char tecla, const std::string& accion)
     else if (a == "agacharse") nuevo = cmdCrouchear_;
     else
     {
-        std::cout << "Acción \"" << accion << "\" no reconocida.\n";
+        std::cout << "Accion \"" << accion << "\" no reconocida.\n";
         return;
     }
 
@@ -54,9 +54,9 @@ void InputHandler::remapearTecla(char tecla, const std::string& accion)
     else if (tecla == 'e')  botonE_ = nuevo;
     else
     {
-        std::cout << "Tecla '" << tecla << "' no válida para remapear.\n";
+        std::cout << "Tecla '" << tecla << "' no valida para remapear.\n";
         return;
     }
 
-    std::cout << "Tecla '" << tecla << "' remapeada a acción \"" << a << "\" correctamente.\n";
+    std::cout << "Tecla '" << tecla << "' remapeada a accion \"" << a << "\" correctamente.\n";
 }
