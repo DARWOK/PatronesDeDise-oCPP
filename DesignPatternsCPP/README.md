@@ -8,5 +8,8 @@ Los observadores implementan IObserver y se suscriben con agregarObserver. Esto 
 
 ## Diagrama UML
 
+![Image_Alt](https://github.com/DARWOK/PatronesDeDise-oCPP/blob/e2a6f06198a5f85511692097df86ece6814c4dbf/DesignPatternsCPP/observer_uml.png)
+
 ## Captura de pantalla
 
+![Image_Alt](https://github.com/DARWOK/PatronesDeDise-oCPP/blob/e2a6f06198a5f85511692097df86ece6814c4dbf/DesignPatternsCPP/Screenshot%202025-08-22%20232727.png)
