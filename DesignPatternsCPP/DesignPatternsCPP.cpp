@@ -1,49 +1,40 @@
-// DesignPatternsCPP.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
-//
-
+// DesignPatternsCPP.cpp : punto de entrada de la demo de consola.
 #include <iostream>
-#include <string>
 #include "Personaje.h"
-#include "InputHandler.h"
+// Dejamos InputHandler y Command en el proyecto por compatibilidad, pero no se usan en esta tarea.
+
+static void printHelp()
+{
+    std::cout << "=======================================\n";
+    std::cout << "Controles: 'w' = Saltar, 'f' = Atacar, 'q' = Salir\n";
+    std::cout << "Cada entrada procesa un frame: primero handleInput(), luego update().\n";
+    std::cout << "Estados: IDLE, JUMPING, ATTACKING. Tras 2 updates, vuelve a IDLE.\n";
+    std::cout << "=======================================\n";
+}
 
 int main()
 {
-	char tecla;
-	Personaje* personaje = new Personaje(20,20,10,10,10);
-    InputHandler inputHandler;
+    Personaje personaje; // por defecto
+    printHelp();
 
-    std::cout << "=======================================\n";
-    std::cout << "Bienvenido al juego (Patron Command)\n";
-    std::cout << "Controles: 'w' = Saltar, 'f' = Disparar, 'e' = Agacharse\n";
-    std::cout << "Presiona 'r' para entrar en Modo Remapeo\n";
-    std::cout << "=======================================\n";
-	
-	// Update
-	while (true)
-	{
-        std::cout << "\nIngresa una tecla: ";
+    while (true) {
+        std::cout << "\nEstado actual: " << personaje.stateName() << "\n";
+        std::cout << "Ingresa tecla: ";
+
+        char tecla = '\0';
         std::cin >> tecla;
+        if (!std::cin) break;
+        if (tecla == 'q') break;
 
-        if (tecla == 'r')
-        {
-            std::cout << "¿Que tecla quieres remapear? ";
-            char t; std::cin >> t;
-            std::cout << "¿A que accion? (saltar, disparar, agacharse): ";
-            std::string accion; std::cin >> accion;
-            inputHandler.remapearTecla(t, accion);
-        }
-        else
-        {
-            Command* cmd = inputHandler.handleInput(tecla);
-            if (cmd)
-                cmd->execute(*personaje);
-            else
-                std::cout << "=======================================\n"
-                << "Tecla no valida\n"
-                << "=======================================\n";
-        }
-        std::cout << "\n\n************* Next Frame ***********\n";
-	}
-    delete personaje;
+        // 1) Gestionar input según el estado actual (FSM)
+        personaje.handleInput(tecla);
+
+        // 2) Avanzar simulación un frame
+        personaje.update();
+
+        std::cout << "---------------------------------------\n";
+    }
+
+    std::cout << "Fin.\n";
     return 0;
 }

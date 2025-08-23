@@ -1,92 +1,91 @@
 #include "Personaje.h"
 #include <iostream>
 
+// Constructores
 Personaje::Personaje(float health, float maxHealth, float speed, int damage, float jumpHeight)
+    : _health(health), _maxHealth(maxHealth), _speed(speed), _damage(damage), _jumpHeight(jumpHeight),
+      currentState_(State::IDLE), stateTicks_(0), ticksToIdle_(2)
 {
-	std::cout << "Llamando Constructor de Personaje con Variables" << std::endl;
-	_health = health;
-	_maxHealth = maxHealth;
-	_speed = speed;
-	_damage = damage;
-	_jumpHeight = jumpHeight;
 }
 
 Personaje::Personaje()
+    : Personaje(20.f, 20.f, 10.f, 10, 10.f)
 {
-	std::cout << "Llamando Constructor por Defecto de Personaje" << std::endl;
-	_health = 100;
-	_maxHealth = 100;
-	_speed = 10;
-	_damage = 10;
-	_jumpHeight = 10;
 }
 
-void Personaje::Saltar()
+// --- FSM ---
+void Personaje::handleInput(char input)
 {
-	std::cout << "Saltando" << std::endl;
+    switch (currentState_)
+    {
+    case State::IDLE:
+        if (input == 'w') {
+            currentState_ = State::JUMPING;
+            stateTicks_ = 0;
+            std::cout << "Personaje salta.\n";
+        } else if (input == 'f') {
+            currentState_ = State::ATTACKING;
+            stateTicks_ = 0;
+            std::cout << "Personaje ataca.\n";
+        } else {
+            // Ignoramos otras teclas en IDLE sin quejarse
+        }
+        break;
+
+    case State::JUMPING:
+        // En el aire ignoramos cualquier input
+        if (input != '\0') {
+            std::cout << "Personaje está en el aire y no puede realizar acciones.\n";
+        }
+        break;
+
+    case State::ATTACKING:
+        // Atacando ignoramos cualquier input
+        if (input != '\0') {
+            std::cout << "Personaje está atacando y no puede realizar acciones.\n";
+        }
+        break;
+    }
 }
 
-void Personaje::Disparar()
+void Personaje::update()
 {
-	std::cout << "Disparando" << std::endl;
+    // Si está en JUMPING o ATTACKING, contamos "tiempo" y volvemos a IDLE tras X ticks
+    if (currentState_ == State::JUMPING || currentState_ == State::ATTACKING) {
+        ++stateTicks_;
+        if (stateTicks_ >= ticksToIdle_) {
+            currentState_ = State::IDLE;
+            stateTicks_ = 0;
+            // Volver a IDLE no requiere mensaje por el enunciado; si quieres, descomenta:
+            // std::cout << "Personaje vuelve a IDLE.\n";
+        }
+    }
 }
 
-Personaje::~Personaje()
+// Métodos existentes (compatibilidad con patrón Command anterior)
+// No cambian de estado por sí mismos, solo muestran acciones base.
+void Personaje::Saltar()     { std::cout << "SALTAR (API antigua)\n"; }
+void Personaje::Disparar()   { std::cout << "DISPARAR (API antigua)\n"; }
+void Personaje::Crouchear()  { std::cout << "AGACHARSE (API antigua)\n"; }
+
+const char* Personaje::stateName() const
 {
-	std::cout << "Llamando Destructor de Personaje" << std::endl;
+    switch (currentState_) {
+    case State::IDLE:      return "IDLE";
+    case State::JUMPING:   return "JUMPING";
+    case State::ATTACKING: return "ATTACKING";
+    default:               return "?";
+    }
 }
 
-void Personaje::Crouchear()
-{
-	std::cout << "Llamando Crouch" << std::endl;
-}
-
-float Personaje::GetHealth()
-{
-	return _health;
-}
-
-void Personaje::SetHealth(float health)
-{
-	_health = health;
-}
-
-float Personaje::GetMaxHealth()
-{
-	return _maxHealth;
-}
-
-void Personaje::SetMaxHealth(float maxHealth)
-{
-	_maxHealth = maxHealth;
-}
-
-float Personaje::GetSpeed()
-{
-	return _speed;
-}
-
-void Personaje::SetSpeed(float speed)
-{
-	_speed = speed;
-}
-
-int Personaje::GetDamage()
-{
-	return _damage;
-}
-
-void Personaje::SetDamage(int damage)
-{
-	_damage = damage;
-}
-
-float Personaje::GetJmpHeight()
-{
-	return _jumpHeight;
-}
-
-void Personaje::SetJmpHeight(float jmpHeight)
-{
-	_jumpHeight = jmpHeight;
-}
+// Getters / Setters ya existentes
+float Personaje::GetHealth() { return _health; }
+void  Personaje::SetHealth(float health) { _health = health; }
+float Personaje::GetMaxHealth() { return _maxHealth; }
+void  Personaje::SetMaxHealth(float maxHealth) { _maxHealth = maxHealth; }
+float Personaje::GetSpeed() { return _speed; }
+void  Personaje::SetSpeed(float speed) { _speed = speed; }
+int   Personaje::GetDamage() { return _damage; }
+void  Personaje::SetDamage(int damage) { _damage = damage; }
+float Personaje::GetJmpHeight() { return _jumpHeight; }
+void  Personaje::SetJmpHeight(float jmpHeight) { _jumpHeight = jmpHeight; }
