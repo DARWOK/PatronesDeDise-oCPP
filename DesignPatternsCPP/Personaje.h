@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "IObserver.h"
 
 class Personaje
 {
@@ -41,6 +42,12 @@ public:
     float GetJmpHeight();
     void SetJmpHeight(float jmpHeight);
 
+    // API de Subject
+    void agregarObserver(IObserver* observer);
+
+    // Evento de juego que dispara notificaciones
+    void recibirDano(int dano);
+
 private:
     // Datos "de juego" ya existentes
     float _health;
@@ -53,4 +60,11 @@ private:
     State currentState_;
     int   stateTicks_;        // contador simple para simular tiempo en estado
     int   ticksToIdle_;       // cuántos updates permanecemos en JUMPING/ATTACKING antes de volver a IDLE
+    
+    // --- Observer (Subject) ---
+    static const int MAX_OBSERVERS = 10;
+    IObserver* observadores_[MAX_OBSERVERS] = { nullptr };
+    int numObservadores_ = 0;
+
+    void notificar(Evento evento);
 };

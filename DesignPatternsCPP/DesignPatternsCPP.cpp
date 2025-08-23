@@ -1,6 +1,8 @@
 // DesignPatternsCPP.cpp : punto de entrada de la demo de consola.
 #include <iostream>
 #include "Personaje.h"
+#include "SistemaDeLogros.h"
+#include "SistemaDeAudio.h"
 // Dejamos InputHandler y Command en el proyecto por compatibilidad, pero no se usan en esta tarea.
 
 static void printHelp()
@@ -15,7 +17,21 @@ static void printHelp()
 int main()
 {
     Personaje personaje; // por defecto
-    printHelp();
+
+    // --- Demo del Patron Observer ---
+    SistemaDeLogros logros;
+    SistemaDeAudio  audio;
+    personaje.agregarObserver(&logros);
+    personaje.agregarObserver(&audio);
+
+    std::cout << "== Disparando evento de dano para demostrar Observer ==" << std::endl;
+    personaje.recibirDano(10);
+    std::cout << "== Fin de la demostracion Observer ==" << std::endl;
+
+	// --------------------------------
+
+	printHelp(); // Instrucciones de teclas disponibles. Estados agregados: IDLE, JUMPING, ATTACKING.
+    // Puedo agregar más estados y teclas según requiera, por ahora funciona todo... creo...
 
     while (true) {
         std::cout << "\nEstado actual: " << personaje.stateName() << "\n";

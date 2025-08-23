@@ -127,11 +127,16 @@
     <ClCompile Include="DesignPatternsCPP.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Personaje.cpp" />
+    <ClCompile Include="SistemaDeAudio.cpp" />
+    <ClCompile Include="SistemaDeLogros.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h" />
     <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="IObserver.h" />
     <ClInclude Include="Personaje.h" />
+    <ClInclude Include="SistemaDeAudio.h" />
+    <ClInclude Include="SistemaDeLogros.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

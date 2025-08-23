@@ -89,3 +89,29 @@ int   Personaje::GetDamage() { return _damage; }
 void  Personaje::SetDamage(int damage) { _damage = damage; }
 float Personaje::GetJmpHeight() { return _jumpHeight; }
 void  Personaje::SetJmpHeight(float jmpHeight) { _jumpHeight = jmpHeight; }
+
+// ==================== Observer (Subject) ====================
+void Personaje::agregarObserver(IObserver* observer) {
+    if (!observer) return;
+    if (numObservadores_ >= MAX_OBSERVERS) {
+        std::cout << "[Subject] No se pueden agregar mas observadores (MAX_OBSERVERS alcanzado).\n";
+        return;
+    }
+    observadores_[numObservadores_++] = observer;
+}
+
+void Personaje::notificar(Evento evento) {
+    for (int i = 0; i < numObservadores_; ++i) {
+        if (observadores_[i]) {
+            observadores_[i]->onNotify(*this, evento);
+        }
+    }
+}
+
+void Personaje::recibirDano(int dano) {
+    if (dano <= 0) return;
+    _health -= dano;
+    if (_health < 0) _health = 0;
+    std::cout << "[Personaje] Recibe " << dano << " de dano. Salud actual: " << _health << "/" << _maxHealth << "\n";
+    notificar(Evento::PERSONAJE_RECIBE_DANO);
+}
