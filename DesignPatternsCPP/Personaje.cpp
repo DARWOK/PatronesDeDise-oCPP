@@ -35,14 +35,14 @@ void Personaje::handleInput(char input)
     case State::JUMPING:
         // En el aire ignoramos cualquier input
         if (input != '\0') {
-            std::cout << "Personaje está en el aire y no puede realizar acciones.\n";
+            std::cout << "Personaje esta en el aire y no puede realizar acciones.\n";
         }
         break;
 
     case State::ATTACKING:
         // Atacando ignoramos cualquier input
         if (input != '\0') {
-            std::cout << "Personaje está atacando y no puede realizar acciones.\n";
+            std::cout << "Personaje esta atacando y no puede realizar acciones.\n";
         }
         break;
     }
@@ -67,6 +67,7 @@ void Personaje::update()
 void Personaje::Saltar()     { std::cout << "SALTAR (API antigua)\n"; }
 void Personaje::Disparar()   { std::cout << "DISPARAR (API antigua)\n"; }
 void Personaje::Crouchear()  { std::cout << "AGACHARSE (API antigua)\n"; }
+// API antigua para moverse, ahora se maneja con FSM, lo dejo para testeo.
 
 const char* Personaje::stateName() const
 {

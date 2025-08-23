@@ -3,7 +3,8 @@
 #include "Personaje.h"
 #include "SistemaDeLogros.h"
 #include "SistemaDeAudio.h"
-// Dejamos InputHandler y Command en el proyecto por compatibilidad, pero no se usan en esta tarea.
+#include "SoundEvent.h"
+// Dejamos InputHandler y Command en el proyecto por compatibilidad.
 
 static void printHelp()
 {
@@ -17,6 +18,8 @@ static void printHelp()
 int main()
 {
     Personaje personaje; // por defecto
+    SistemaDeAudio audioSystem;
+
 
     // --- Demo del Patron Observer ---
     SistemaDeLogros logros;
@@ -24,7 +27,7 @@ int main()
     personaje.agregarObserver(&logros);
     personaje.agregarObserver(&audio);
 
-    std::cout << "== Disparando evento de dano para demostrar Observer ==" << std::endl;
+    std::cout << "== Disparando evento de damage para demostrar Observer ==" << std::endl;
     personaje.recibirDano(10);
     std::cout << "== Fin de la demostracion Observer ==" << std::endl;
 
@@ -47,6 +50,19 @@ int main()
 
         // 2) Avanzar simulación un frame
         personaje.update();
+
+        // --- Event Queue demo: solicitamos sonidos (con duplicados) y luego procesamos ---
+        audioSystem.solicitarSonido({ SoundID::HIT });
+        audioSystem.solicitarSonido({ SoundID::JUMP });
+        audioSystem.solicitarSonido({ SoundID::HIT });  // Duplicado
+        audioSystem.solicitarSonido({ SoundID::HIT });  // Duplicado
+        std::cout << "--- Fin del Frame de Logica ---\n";
+        audioSystem.procesarEventos();
+        // -------------------------------------------------------------------------------
+		// Ya testeado puedo agregar más sonidos y eventos según requiera el juego y se manejan perfectamente los duplicados.
+		// Por ahora solo tenemos HIT y JUMP, hice testeo anteriormente con 10 solicitudes de HIT y 5 de JUMP y funcionó perfecto.
+        // Dejo sólo 4 solicitudes para no saturar el código.
+
 
         std::cout << "---------------------------------------\n";
     }
