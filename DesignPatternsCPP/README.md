@@ -1,28 +1,108 @@
-# Tarea 03 | Patron Observer con Arrays Fijos
+# Portafolio de Patrones en C++ (App de Consola)
 
-Este proyecto implementa el patron **Observer** en C++ usando un array fijo para gestionar suscriptores.
+Pequeño portafolio implementando patrones: **Command**, **State (FSM)**, **Observer** y **Event Queue con filtrado**. El objetivo es mostrar código limpio, estructurado y documentado, listo para revisión técnica.
+Teniendo además una Fuente para consultar estructuras/patrones que pueden ser de utilidad en un futuro.
 
-## Como ayuda el Observer a desacoplar
-El sujeto (Personaje) no conoce detalles de los sistemas que reaccionan. Solo anuncia eventos (Evento).
-Los observadores implementan IObserver y se suscriben con agregarObserver. Esto elimina dependencias directas y evita codigo espagueti.
+## Índice
+- [Estructura del repositorio](#estructura-del-repositorio)
+- [Compilación y ejecución](#compilación-y-ejecución)
+- [Patrones](#patrones)
+  - [Command](#command)
+  - [State (FSM)](#state-fsm)
+  - [Observer](#observer)
+  - [Event Queue + Filtrado](#event-queue--filtrado)
+- [Estilo de código](#estilo-de-código)
+- [Versionado](#versionado)
 
-## Diagrama UML
+## Compilación y ejecución
+1. Clona el repositorio y abre la solución de Visual Studio.
+2. En el proyecto, agrega todos los `.cpp` y `.h` desde `Source/` si no se agregan automáticamente.
+3. Configura la carpeta `Source/` como Include Directory si fuera necesario.
+4. Compila (x64 Debug) y ejecuta.
 
-![Image_Alt](https://github.com/DARWOK/PatronesDeDise-oCPP/blob/c68602157218233eb335729365be5f301e45d3af/DesignPatternsCPP/observer_uml.png)
+## Patrones
 
-## Captura de pantalla
+### Command
+**Idea:** mapear entradas a comandos desacoplados del actor.  
+**Clases clave:** `Patterns/Command/Command.h`, `Core/InputHandler.h`.  
+**Fragmento representativo:**
+```cpp
+// InputHandler::remapearTecla(char tecla, const std::string& accion)
+```
+**UML (simplificado):**
+```mermaid
+classDiagram
+  class Command { +execute() }
+  class InputHandler { +remapearTecla(char, string) }
+  Command <|.. JumpCommand
+  Command <|.. FireCommand
+  InputHandler --> Command : mapea
+```
 
-![Image_Alt](https://github.com/DARWOK/PatronesDeDise-oCPP/blob/c68602157218233eb335729365be5f301e45d3af/DesignPatternsCPP/Screenshot%202025-08-22%20232727.png)
+### State (FSM)
+**Idea:** el comportamiento de `Personaje` depende del estado actual.  
+**Clases:** `Core/Personaje.h`.  
+**Fragmento:**
+```cpp
+// Personaje::handleInput, Personaje::update
+```
+**UML:**
+```mermaid
+classDiagram
+  class Personaje {
+    +handleInput(char)
+    +update()
+    -currentState_: State
+  }
+  enum State { IDLE, JUMPING, ATTACKING }
+```
 
-## Tarea 04 | Event Queue y filtrado de peticiones
+### Observer
+**Idea:** notificar 1-a-muchos sin dependencias directas.  
+**Clases:** `Patterns/Observer/IObserver.h`, `Systems/SistemaDeLogros.h`, `Systems/SistemaDeAudio.h`.  
+**Fragmento:**
+```cpp
+// Personaje::agregarObserver, Personaje::notificar, SistemaDeLogros::onNotify
+```
+**UML:**
+```mermaid
+classDiagram
+  class IObserver { +onNotify(const Personaje&, Evento)* }
+  IObserver <|.. SistemaDeAudio
+  IObserver <|.. SistemaDeLogros
+  Personaje "1" o--> "0..10" IObserver : suscriptores
+  enum Evento { PERSONAJE_RECIBE_DANO }
+```
 
-### Diferencias Observer vs Event Queue
-- **Observer (sincrónico):** notifica *al instante* a múltiples observadores. El emisor y receptor comparten el mismo momento de ejecución.
-- **Event Queue (asincrónico):** el emisor solo **encola** eventos; el receptor los procesa **después** (por frame, por sistema), controlando ritmo y acumulación.
+### Event Queue + Filtrado
+**Idea:** desacople temporal; encolar y procesar por frame con eliminación de duplicados.  
+**Clases:** `Patterns/SoundEvent/SoundEvent.h`, `Systems/SistemaDeAudio.h`.  
+**Fragmento:**
+```cpp
+audio.solicitarSonido({SoundID::HIT});
+audio.solicitarSonido({SoundID::HIT}); // duplicado
+audio.procesarEventos(); // se reproduce una sola vez
+```
+**UML:**
+```mermaid
+classDiagram
+  class SistemaDeAudio {
+    +solicitarSonido(SoundEvent)
+    +procesarEventos()
+    -pending_[16] : SoundEvent
+    -numPending_ : int
+  }
+  class SoundEvent { +id: SoundID; +operator==(SoundEvent) }
+```
 
-### Por qué filtrar duplicados en audio
-Varias solicitudes del mismo sonido en un frame saturan el mezclador y generan ruido visual/sonoro. Filtrar deja un único sonido representativo por tipo (HIT, JUMP, etc.), reduciendo costo y caos.
-
-### Captura de pantalla
-
-![Image_Alt](https://github.com/DARWOK/PatronesDeDise-oCPP/blob/8e24010ad38093a7e717dd91502cfc470cf2f9df/DesignPatternsCPP/Screenshot%202025-08-23%20012139.png)
+## Versionado
+```bash
+git checkout -b feature/professional-portfolio
+git commit -am "Refactor: estructura Source/ y documentación Doxygen"
+git tag -a v1.0-Command -m "Implementación del Patrón Command"
+git tag -a v1.1-State -m "FSM básica en Personaje"
+git tag -a v1.2-Observer -m "Observer con arrays fijos"
+git tag -a v1.3-EventQueue -m "Cola de audio con filtrado"
+git push origin feature/professional-portfolio
+git push origin --tags
+```
