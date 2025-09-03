@@ -4,6 +4,7 @@
 #include "Systems/SistemaDeLogros.h"
 #include "Systems/SistemaDeAudio.h"
 #include "Patterns/SoundEvent/SoundEvent.h"
+#include "Core/InputHandler.h"
 // Dejamos InputHandler y Command en el proyecto por compatibilidad.
 
 static void printHelp()
@@ -11,6 +12,7 @@ static void printHelp()
 	std::cout << "=======================================\n";
 	std::cout << "Controles: 'w' = Saltar, 'f' = Atacar, 'q' = Salir\n";
 	std::cout << "Cada entrada procesa un frame: primero handleInput(), luego update().\n";
+	std::cout << "Presiona 'r' para entrar en Modo Remapeo\n";
 	std::cout << "Estados: IDLE, JUMPING, ATTACKING. Tras 2 updates, vuelve a IDLE.\n";
 	std::cout << "=======================================\n";
 }
@@ -19,7 +21,7 @@ int main()
 {
 	Personaje personaje; // por defecto
 	SistemaDeAudio audioSystem;
-
+	InputHandler inputHandler;
 
 	// --- Demo del Patron Observer ---
 	SistemaDeLogros logros;
@@ -43,8 +45,16 @@ int main()
 		char tecla = '\0';
 		std::cin >> tecla;
 		if (!std::cin) break;
-		if (tecla == 'q') break;
-
+		if (tecla == 'q' || tecla == 'Q') break;
+		if (tecla == 'r' || tecla == 'R')
+		{
+			std::cout << "Que tecla quieres remapear? ";
+			char t; std::cin >> t;
+			std::cout << "A que accion? (saltar, disparar, agacharse): ";
+			std::string accion; std::cin >> accion;
+			inputHandler.remapearTecla(t, accion);
+		}
+		
 		// 1) Gestionar input según el estado actual (FSM)
 		personaje.handleInput(tecla);
 

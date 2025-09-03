@@ -24,9 +24,9 @@ InputHandler::~InputHandler()
 
 Command* InputHandler::handleInput(char tecla)
 {
-	if (tecla == 'w') return botonW_;
-	if (tecla == 'f') return botonF_;
-	if (tecla == 'e') return botonE_;
+	if (tecla == 'w' || tecla == 'W') return botonW_;
+	if (tecla == 'f' || tecla == 'F') return botonF_;
+	if (tecla == 'e' || tecla == 'E') return botonE_;
 
 	// Si no es una tecla mapeada, no devolvemos ningn comando
 	return nullptr;
@@ -49,9 +49,9 @@ void InputHandler::remapearTecla(char tecla, const std::string& accion)
 	}
 
 	// Remapear la tecla indicada
-	if (tecla == 'w')       botonW_ = nuevo;
-	else if (tecla == 'f')  botonF_ = nuevo;
-	else if (tecla == 'e')  botonE_ = nuevo;
+	if (tecla == 'w' || tecla == 'W')       botonW_ = nuevo;
+	else if (tecla == 'f' || tecla == 'F')  botonF_ = nuevo;
+	else if (tecla == 'e' || tecla == 'E')  botonE_ = nuevo;
 	else
 	{
 		std::cout << "Tecla '" << tecla << "' no valida para remapear.\n";
