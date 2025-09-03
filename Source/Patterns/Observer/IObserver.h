@@ -1,3 +1,7 @@
+/**
+ * @file IObserver.h
+ * @brief Parte del portafolio de patrones. Define IObserver.
+ */
 #pragma once
 #include <iostream>
 
@@ -10,6 +14,9 @@ enum class Evento
 	PERSONAJE_RECIBE_DANO
 };
 
+/**
+ * @brief Interfaz Observer para notificaciones 1-a-muchos.
+ */
 class IObserver
 {
 public:

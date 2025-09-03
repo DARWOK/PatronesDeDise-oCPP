@@ -1,9 +1,9 @@
 // DesignPatternsCPP.cpp : punto de entrada de la demo de consola.
 #include <iostream>
-#include "Personaje.h"
-#include "SistemaDeLogros.h"
-#include "SistemaDeAudio.h"
-#include "SoundEvent.h"
+#include "Core/Personaje.h"
+#include "Systems/SistemaDeLogros.h"
+#include "Systems/SistemaDeAudio.h"
+#include "Patterns/SoundEvent/SoundEvent.h"
 // Dejamos InputHandler y Command en el proyecto por compatibilidad.
 
 static void printHelp()

@@ -1,4 +1,4 @@
-#include "InputHandler.h"
+#include "Core/InputHandler.h"
 #include <iostream>
 #include <algorithm>
 
@@ -28,13 +28,13 @@ Command* InputHandler::handleInput(char tecla)
     if (tecla == 'f') return botonF_;
     if (tecla == 'e') return botonE_;
 
-    // Si no es una tecla mapeada, no devolvemos ningún comando
+    // Si no es una tecla mapeada, no devolvemos ningn comando
     return nullptr;
 }
 
 void InputHandler::remapearTecla(char tecla, const std::string& accion)
 {
-    // Normalizar acción a minúsculas
+    // Normalizar accin a minsculas
     std::string a = accion;
     std::transform(a.begin(), a.end(), a.begin(), ::tolower);
 

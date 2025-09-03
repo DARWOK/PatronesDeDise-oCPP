@@ -1,7 +1,14 @@
+/**
+ * @file Personaje.h
+ * @brief Parte del portafolio de patrones. Define Personaje.
+ */
 #pragma once
 #include <iostream>
-#include "IObserver.h"
+#include "Patterns/Observer/IObserver.h"
 
+/**
+ * @brief Entidad central con FSM y stats simples.
+ */
 class Personaje
 {
 public:

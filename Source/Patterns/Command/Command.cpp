@@ -1,4 +1,4 @@
-#include "Command.h"
+#include "Patterns/Command/Command.h"
 
 //Command::Command()
 //{

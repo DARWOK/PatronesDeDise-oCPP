@@ -102,6 +102,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\darwok\Documents\SAE Institute\Trimestre 3\Arqui\PatronesDeDise-oCPP\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,21 +124,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Command.cpp" />
-    <ClCompile Include="DesignPatternsCPP.cpp" />
-    <ClCompile Include="InputHandler.cpp" />
-    <ClCompile Include="Personaje.cpp" />
-    <ClCompile Include="SistemaDeAudio.cpp" />
-    <ClCompile Include="SistemaDeLogros.cpp" />
+    <ClCompile Include="..\Source\Core\InputHandler.cpp" />
+    <ClCompile Include="..\Source\Core\Personaje.cpp" />
+    <ClCompile Include="..\Source\DesignPatternsCPP.cpp" />
+    <ClCompile Include="..\Source\Patterns\Command\Command.cpp" />
+    <ClCompile Include="..\Source\Systems\SistemaDeAudio.cpp" />
+    <ClCompile Include="..\Source\Systems\SistemaDeLogros.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Command.h" />
-    <ClInclude Include="InputHandler.h" />
-    <ClInclude Include="IObserver.h" />
-    <ClInclude Include="Personaje.h" />
-    <ClInclude Include="SistemaDeAudio.h" />
-    <ClInclude Include="SistemaDeLogros.h" />
-    <ClInclude Include="SoundEvent.h" />
+    <ClInclude Include="..\Source\Core\InputHandler.h" />
+    <ClInclude Include="..\Source\Core\Personaje.h" />
+    <ClInclude Include="..\Source\Patterns\Command\Command.h" />
+    <ClInclude Include="..\Source\Patterns\Observer\IObserver.h" />
+    <ClInclude Include="..\Source\Patterns\SoundEvent\SoundEvent.h" />
+    <ClInclude Include="..\Source\Systems\SistemaDeAudio.h" />
+    <ClInclude Include="..\Source\Systems\SistemaDeLogros.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
