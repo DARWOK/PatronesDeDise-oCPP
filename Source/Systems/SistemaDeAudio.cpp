@@ -1,5 +1,5 @@
-#include "Systems/SistemaDeAudio.h"
-#include "Core/Personaje.h"
+#include "SistemaDeAudio.h"
+#include "..\Core/Personaje.h"
 #include <iostream>
 
 void SistemaDeAudio::onNotify(const Personaje& personaje, Evento evento)

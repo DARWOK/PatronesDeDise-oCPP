@@ -1,5 +1,19 @@
+/**
+ * @file Command.h
+ * @brief Interfaz base del patrón Command para encapsular acciones invocables.
+ */
+
 #pragma once
-#include "Core/Personaje.h"
+#include "../../Core/Personaje.h"
+
+ /**
+  * @brief Interfaz abstracta de comando. Cada acción concreta implementa execute().
+  * Útil para desacoplar el input de las acciones ejecutadas por el juego.
+  */
+
+  /**
+   * @brief Ejecuta la acción encapsulada por el comando.
+   */
 
 class Command
 {
@@ -12,6 +26,7 @@ public:
 class SaltarCommand : public Command
 {
 public:
+
 	virtual void execute(Personaje& personaje) override
 	{
 		personaje.Saltar();

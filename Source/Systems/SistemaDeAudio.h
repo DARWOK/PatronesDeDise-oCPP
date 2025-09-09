@@ -3,8 +3,8 @@
  * @brief Parte del portafolio de patrones. Define SistemaDeAudio.
  */
 #pragma once
-#include "Patterns/Observer/IObserver.h"
-#include "Patterns/SoundEvent/SoundEvent.h"
+#include "../Patterns/Observer/IObserver.h"
+#include "../Patterns/SoundEvent/SoundEvent.h"
 
  /**
   * @brief Sistema de Audio con Observer + Event Queue filtrada.

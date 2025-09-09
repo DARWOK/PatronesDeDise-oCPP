@@ -1,4 +1,4 @@
-#include "Core/Personaje.h"
+#include "Personaje.h"
 #include <iostream>
 
 // Constructores

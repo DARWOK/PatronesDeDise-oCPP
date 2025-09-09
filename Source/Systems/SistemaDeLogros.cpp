@@ -1,5 +1,5 @@
-#include "Systems/SistemaDeLogros.h"
-#include "Core/Personaje.h"
+#include "..\Systems/SistemaDeLogros.h"
+#include "..\Core/Personaje.h"
 #include <iostream>
 
 void SistemaDeLogros::onNotify(const Personaje& /*personaje*/, Evento evento) {

@@ -3,7 +3,7 @@
  * @brief Parte del portafolio de patrones. Define SistemaDeLogros.
  */
 #pragma once
-#include "Patterns/Observer/IObserver.h"
+#include "../Patterns/Observer/IObserver.h"
  /**
   * @brief Sistema de Logros que reacciona a eventos del Personaje.
   */

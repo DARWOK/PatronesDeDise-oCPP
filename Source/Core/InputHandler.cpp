@@ -1,4 +1,4 @@
-#include "Core/InputHandler.h"
+#include "InputHandler.h"
 #include <iostream>
 #include <algorithm>
 

@@ -35,9 +35,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\Patterns\Command\Command.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Core\InputHandler.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -54,6 +51,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Systems\SistemaDeLogros.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Patterns\Command\Command.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

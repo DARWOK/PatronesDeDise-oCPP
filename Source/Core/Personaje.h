@@ -4,7 +4,7 @@
  */
 #pragma once
 #include <iostream>
-#include "Patterns/Observer/IObserver.h"
+#include "..\Patterns/Observer/IObserver.h"
 
  /**
   * @brief Entidad central con FSM y stats simples.
